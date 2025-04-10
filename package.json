@@ -1,19 +1,25 @@
 {
-  "name": "superlink-components-library",
-  "private": true,
+  "name": "@gabriel20x/superlink-components-library",
+  "private": false,
   "version": "0.0.1",
   "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "build": "rollup -c",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-  "dependencies": {
-  },
   "devDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "@chromatic-com/storybook": "^3.2.6",
     "@eslint/js": "^9.21.0",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@storybook/addon-essentials": "^8.6.12",
     "@storybook/addon-onboarding": "^8.6.12",
     "@storybook/blocks": "^8.6.12",
@@ -32,6 +38,14 @@
     "eslint-plugin-storybook": "^0.12.0",
     "globals": "^15.15.0",
     "playwright": "^1.51.1",
+    "postcss": "^8.5.3",
+    "postcss-modules": "^6.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^4.39.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
     "storybook": "^8.6.12",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
