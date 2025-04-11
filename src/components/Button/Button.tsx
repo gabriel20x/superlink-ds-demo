@@ -1,52 +1,48 @@
-import styles from './button.module.css';
+'use client';
 
-export interface ButtonProps {
-  /** Is this the principal call to action on the page? */
-  primary?: boolean;
-  /** What background color to use */
-  backgroundColor?: string;
-  /** How large should the button be? */
-  size?: 'small' | 'medium' | 'large';
-  /** Button contents */
+import React from 'react';
+import { cva, cn } from '../../utils/cva';
+import styles from './Button.module.css';
+
+type ButtonVariant = 'primary' | 'secondary';
+type ButtonSize = 'small' | 'medium' | 'large';
+
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
   label: string;
-  /** Optional click handler */
-  onClick?: () => void;
 }
 
-/** Primary UI component for user interaction */
-export const Button = ({
-  primary = false,
-  size = 'medium',
-  backgroundColor,
-  label,
-  ...props
-}: ButtonProps) => {
-  const sizeClass = (() => {
-    switch(size) {
-      case 'small':
-        return styles.storybookButtonSmall;
-      case 'medium':
-        return styles.storybookButtonMedium;
-      case 'large':
-        return styles.storybookButtonLarge;
-      default:
-        return styles.storybookButtonMedium;
+const buttonVariants = cva(styles.button, {
+  variants: {
+    variant: {
+      primary: styles.primary,
+      secondary: styles.secondary,
+    },
+    size: {
+      small: styles.small,
+      medium: styles.medium,
+      large: styles.large
     }
-  })();
-  const primaryClass = (() => {
-    if (primary) {
-      return styles.storybookButtonPrimary;
-    }
-    return styles.storybookButtonSecondary;
-  })();
-  return (
-    <button
-      type="button"
-      className={[styles.storybookButton, sizeClass, primaryClass].join(' ')}
-      style={{ backgroundColor }}
-      {...props}
-    >
-      {label}
-    </button>
-  );
-};
+  },
+  defaultVariants: {
+    variant: 'primary',
+    size: 'medium'
+  }
+});
+
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, label, ...props }, ref) => {
+    return (
+      <button
+        className={cn(buttonVariants({ variant, size }), className)}
+        ref={ref}
+        {...props}
+      >
+        {label}
+      </button>
+    );
+  }
+);
+
+Button.displayName = 'Button';
