@@ -1,6 +1,4 @@
-import React from 'react';
-
-import './button.css';
+import styles from './button.module.css';
 
 export interface ButtonProps {
   /** Is this the principal call to action on the page? */
@@ -23,11 +21,28 @@ export const Button = ({
   label,
   ...props
 }: ButtonProps) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+  const sizeClass = (() => {
+    switch(size) {
+      case 'small':
+        return styles.storybookButtonSmall;
+      case 'medium':
+        return styles.storybookButtonMedium;
+      case 'large':
+        return styles.storybookButtonLarge;
+      default:
+        return styles.storybookButtonMedium;
+    }
+  })();
+  const primaryClass = (() => {
+    if (primary) {
+      return styles.storybookButtonPrimary;
+    }
+    return styles.storybookButtonSecondary;
+  })();
   return (
     <button
       type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
+      className={[styles.storybookButton, sizeClass, primaryClass].join(' ')}
       style={{ backgroundColor }}
       {...props}
     >
