@@ -151,3 +151,45 @@ All component documentation is available in Storybook. Run `yarn storybook` to v
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 📦 Building the Library
+
+### Rollup Configuration
+
+The library uses Rollup for bundling. The configuration is set up to:
+- Generate ESM and CommonJS builds
+- Handle TypeScript files
+- Process CSS modules
+- Generate type definitions
+- Preserve the module structure
+
+### Build Commands
+
+To build the library:
+```bash
+yarn build
+```
+
+This will:
+1. Generate the production build in the `dist` folder
+2. Create type definitions
+3. Output both ESM and CommonJS formats
+
+The build output structure will be:
+```
+dist/
+├── cjs/          # CommonJS build
+├── esm/          # ESM build
+├── types/        # TypeScript definitions
+└── package.json  # Package entry points
+```
+
+### Publishing
+
+To publish a new version:
+1. Update the version in `package.json`
+2. Build the library
+3. Publish to npm:
+```bash
+yarn publish
+```
