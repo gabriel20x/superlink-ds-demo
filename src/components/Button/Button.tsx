@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { cva, cn } from '../../utils/cva';
 import styles from './Button.module.css';
