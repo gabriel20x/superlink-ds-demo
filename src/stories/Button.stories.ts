@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 
 import { Button } from '../components/Button/Button';
+import { withCard } from './decorators/withCard';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta<typeof Button> = {
@@ -20,6 +21,7 @@ const meta: Meta<typeof Button> = {
   },
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   args: { onClick: fn() },
+  decorators: [withCard],
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -40,18 +42,23 @@ export const Secondary: Story = {
   },
 };
 
-export const Large: Story = {
+export const Tertiary: Story = {
   args: {
-    variant: 'primary',
-    size: 'large',
-    label: 'Button',
-  },
+    label: "Button",
+    variant: "tertiary"
+  }
 };
 
-export const Small: Story = {
+export const Text: Story = {
   args: {
-    variant: 'primary',
-    size: 'small',
-    label: 'Button',
-  },
+    label: "Button",
+    variant: "text"
+  }
+};
+
+export const Destructive: Story = {
+  args: {
+    label: "Button",
+    variant: "destructive"
+  }
 };
