@@ -1,17 +1,25 @@
+/// <reference types="vite-plugin-svgr/client" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { resolve, dirname } from 'path'
-import { fileURLToPath } from 'url'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+import svgr from 'vite-plugin-svgr'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    svgr({
+      svgrOptions: {
+        icon: true,
+        ref: true,
+        svgo: false,
+        titleProp: true,
+      },
+      include: '**/*.svg',
+    }),
+  ],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.tsx'),
+      entry: 'src/index.tsx',
       name: 'superlink-components-library',
     },
     rollupOptions: {
