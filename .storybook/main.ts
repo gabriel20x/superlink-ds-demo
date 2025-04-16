@@ -7,14 +7,19 @@ const config: StorybookConfig = {
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
   addons: [
+    "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-onboarding",
+    "@storybook/addon-interactions",
     "@chromatic-com/storybook",
     "@storybook/experimental-addon-test"
   ],
   framework: {
     name: "@storybook/react-vite",
     options: {}
+  },
+  docs: {
+    autodocs: "tag",
   },
   viteFinal: async (config) => {
     if (!config.plugins) {
@@ -37,6 +42,11 @@ const config: StorybookConfig = {
     config.assetsInclude = Array.isArray(config.assetsInclude) 
       ? [...config.assetsInclude, '**/*.svg']
       : ['**/*.svg'];
+
+    if (config.server) {
+      config.server.host = true;
+      config.server.allowedHosts = ['f84c-2800-e6-1010-664-c86-3ce3-e348-43a8.ngrok-free.app'];
+    }
 
     return config;
   }
