@@ -31,6 +31,9 @@ export const Default: Story = {
           <StepperItems label="Completed" state="completed" />
           <StepperItems label="In Progress" state="inProgress" />
           <StepperItems label="Pending" state="pending" />
+          <StepperItems label="Pending" state="pending" />
+          <StepperItems label="Pending" state="pending" />
+          <StepperItems label="Pending" state="pending" />
         </Stepper>
     )
 }
