@@ -5,14 +5,39 @@ import { cn } from "../../utils/cva";
 interface StepperItemsProps {
   label: string;
   state: "inProgress" | "completed" | "pending";
+  variant?: "default" | "bar";
 }
 
-export const StepperItems = ({ label, state = "pending" }: StepperItemsProps) => {
+export const StepperItems = ({
+  label,
+  state = "pending",
+  variant = "default",
+}: StepperItemsProps) => {
+  if (variant === "bar") {
+    return (
+      <div className={cn(styles.stepperItemBar, state === "completed" && styles.itemBarCompleted, state === "pending" && styles.itemBarPending, state === "inProgress" && styles.itemBarInProgress)}/>
+    );
+  }
+
   return (
-    <div className={cn([styles.stepperItem, state === "pending" && styles.itemPending])}>
+    <div
+      className={cn([
+        styles.stepperItem,
+        state === "pending" && styles.itemPending,
+      ])}
+    >
       {state === "completed" && <CheckFullIcon width={20} height={20} />}
-      {(state === "inProgress" || state === "pending") && <CheckOutlinedIcon width={20} height={20} />}
-      <span className={cn([styles.stepperItemLabel, state === "completed" && styles.textCompleted])}>{label}</span>
+      {(state === "inProgress" || state === "pending") && (
+        <CheckOutlinedIcon width={20} height={20} />
+      )}
+      <span
+        className={cn([
+          styles.stepperItemLabel,
+          state === "completed" && styles.textCompleted,
+        ])}
+      >
+        {label}
+      </span>
     </div>
   );
 };

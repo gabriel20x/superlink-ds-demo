@@ -16,6 +16,9 @@ const meta: Meta<typeof Stepper> = {
   tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
+    children: {
+      control: false,
+    },
   },
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   args: { },
@@ -30,9 +33,6 @@ export const Default: Story = {
         <Stepper>
           <StepperItems label="Completed" state="completed" />
           <StepperItems label="In Progress" state="inProgress" />
-          <StepperItems label="Pending" state="pending" />
-          <StepperItems label="Pending" state="pending" />
-          <StepperItems label="Pending" state="pending" />
           <StepperItems label="Pending" state="pending" />
         </Stepper>
     )
