@@ -92,6 +92,145 @@ export const Button = ({ variant, size, ...props }) => {
 };
 ```
 
+### Behavior Handling
+
+- Keep components focused on presentation
+- Handle all behaviors in parent components
+- Example of behavior implementation:
+
+```typescript
+// Stepper with navigation
+const StepperWithActions = () => {
+  const [currentStep, setCurrentStep] = useState(0);
+  const totalSteps = 3;
+
+  const handleNext = () => {
+    if (currentStep < totalSteps - 1) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  return (
+    <div>
+      <Stepper>
+        <StepperItems 
+          label="Step 1" 
+          state={currentStep > 0 ? "completed" : currentStep === 0 ? "inProgress" : "pending"} 
+        />
+        <StepperItems 
+          label="Step 2" 
+          state={currentStep > 1 ? "completed" : currentStep === 1 ? "inProgress" : "pending"} 
+        />
+        <StepperItems 
+          label="Step 3" 
+          state={currentStep > 2 ? "completed" : currentStep === 2 ? "inProgress" : "pending"} 
+        />
+      </Stepper>
+      <div>
+        <Button 
+          variant="secondary" 
+          size="S"
+          label="Previous"
+          onClick={handlePrevious}
+          disabled={currentStep === 0}
+        />
+        <Button 
+          variant="primary" 
+          size="S"
+          label="Next"
+          onClick={handleNext}
+          disabled={currentStep === totalSteps - 1}
+        />
+      </div>
+    </div>
+  );
+};
+```
+
+```typescript
+// Modal with close handling
+const ModalWithActions = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
+
+  return (
+    <>
+      <Button 
+        variant="primary"
+        label="Open Modal"
+        onClick={handleOpen}
+      />
+      <Modal 
+        isOpen={isOpen}
+        onClose={handleClose}
+      >
+        <div>Modal Content</div>
+      </Modal>
+    </>
+  );
+};
+```
+```typescript
+// Form with validation
+const FormWithValidation = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Validate form
+    const newErrors = {};
+    if (!formData.email) newErrors.email = 'Email is required';
+    if (!formData.password) newErrors.password = 'Password is required';
+    setErrors(newErrors);
+    
+    if (Object.keys(newErrors).length === 0) {
+      // Handle form submission
+      console.log('Form submitted:', formData);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <Input
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        error={errors.email}
+      />
+      <Input
+        name="password"
+        type="password"
+        value={formData.password}
+        onChange={handleChange}
+        error={errors.password}
+      />
+      <Button 
+        type="submit"
+        variant="primary"
+        label="Submit"
+      />
+    </form>
+  );
+};
+```
+
 ### Adding New Components
 
 1. Create your component in `src/components/ComponentName/`
