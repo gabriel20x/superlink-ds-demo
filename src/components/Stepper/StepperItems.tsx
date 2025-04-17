@@ -12,7 +12,7 @@ export const StepperItems = ({ label, state = "pending" }: StepperItemsProps) =>
     <div className={cn([styles.stepperItem, state === "pending" && styles.itemPending])}>
       {state === "completed" && <CheckFullIcon width={20} height={20} />}
       {(state === "inProgress" || state === "pending") && <CheckOutlinedIcon width={20} height={20} />}
-      <span className={styles.stepperItemLabel}>{label}</span>
+      <span className={cn([styles.stepperItemLabel, state === "completed" && styles.textCompleted])}>{label}</span>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { StepperItems } from "./StepperItems";
 import React from "react";
 
 interface StepperProps {
+    variant?: "default" | "short" | "mobile";
     children: React.ReactNode;
 }
 

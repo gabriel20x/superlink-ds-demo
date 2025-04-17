@@ -38,6 +38,10 @@
 .stepperItemLabel {
     font-size: 12px;
     font-weight: 500;
+    
+    &.textCompleted {
+        color: #B9BABC;
+    }
 }
 
 .stepperItemLine {
