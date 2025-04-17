@@ -1,0 +1,47 @@
+.stepper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.stepperItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: #14171F;
+
+    &.itemPending {
+        color: #B9BABC;
+    }
+}
+
+.stepperItemsContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.stepperItemIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
+
+.stepperItemLabel {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.stepperItemLine {
+    width: 63px;
+    height: 1px;
+    background: #B9BABC;
+}
