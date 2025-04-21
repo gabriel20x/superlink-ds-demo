@@ -2,24 +2,14 @@ import React, { forwardRef } from 'react';
 import styles from './Input.module.css';
 import { cn } from '../../utils/cva';
 
-interface InputProps {
-  value: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
-  disabled?: boolean;
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
-  type?: 'text' | 'password' | 'email' | 'number';
-  className?: string;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(({
-  value,
-  onChange,
-  placeholder,
-  disabled = false,
   error = false,
-  type = 'text',
   className,
+  ...props
 }, ref) => {
   const inputClasses = cn(
     styles.input,
@@ -30,12 +20,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
   return (
     <input
       ref={ref}
-      type={type}
-      value={value}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
-      placeholder={placeholder}
-      disabled={disabled}
       className={inputClasses}
+      {...props}
     />
   );
 });
