@@ -1,7 +1,12 @@
 import React, { forwardRef, useState, useRef, useEffect } from "react";
 import styles from "./PhoneInput.module.css";
 import { cn } from "../../utils/cva";
-import { ExpandMoreIcon, HelpOutlinedIcon, WarningIcon } from "../Icon/icons";
+import {
+  ExpandMoreIcon,
+  HelpOutlinedIcon,
+  SearchIcon,
+  WarningIcon,
+} from "../Icon/icons";
 import { CountryCode, countryCodes } from "../../utils/countries";
 
 export interface PhoneInputProps
@@ -40,6 +45,7 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
     const [selectedCountry, setSelectedCountry] = useState<CountryCode>(
       countryCodes[0]
     );
+    const [dropdownHeight, setDropdownHeight] = useState(0);
     const [searchQuery, setSearchQuery] = useState("");
     const dropdownRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -88,6 +94,22 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
       className
     );
 
+    useEffect(() => {
+      const handleResize = () => {
+        if (dropdownRef.current) {
+          const top = dropdownRef.current.getBoundingClientRect().top || 0;
+          setDropdownHeight(Math.min(window.innerHeight - top - 16, 288));
+        }
+      };
+
+      handleResize();
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }, []);
+
     return (
       <div className={wrapperClasses}>
         {inputLabel && (
@@ -117,43 +139,55 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
                 value={value}
                 onChange={onChange}
                 type="tel"
+                onClick={(e) => e.stopPropagation()}
                 {...props}
               />
               <div
-                className={cn(styles.trailingIcon, isOpen && styles.trailingIconIsOpen)}
+                className={cn(
+                  styles.trailingIcon,
+                  isOpen && styles.trailingIconIsOpen
+                )}
                 onClick={onTrailingIconClick}
               >
                 <ExpandMoreIcon width={16} height={16} />
               </div>
             </button>
 
-            {isOpen && (
-              <div ref={dropdownRef} className={styles.dropdown}>
-                <div className={styles.searchInputWrapper}>
-                  <input
-                    placeholder="Search country..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className={styles.searchInput}
-                  />
-                </div>
-                <div className={styles.countryList}>
-                  {filteredCountries.map((country) => (
-                    <button
-                      key={country.code}
-                      type="button"
-                      className={styles.countryOption}
-                      onClick={() => handleCountrySelect(country)}
-                    >
-                      <span>{country.name}</span>
-                      <span className={styles.dialCode}>
-                        {country.dialCode}
-                      </span>
-                    </button>
-                  ))}
-                </div>
+            <div
+              ref={dropdownRef}
+              className={styles.dropdown}
+              style={{
+                visibility: isOpen ? "visible" : "hidden",
+                maxHeight: dropdownHeight,
+              }}
+            >
+              <div className={styles.searchInputWrapper}>
+                <SearchIcon
+                  width={16}
+                  height={16}
+                  className={styles.searchIcon}
+                />
+                <input
+                  placeholder="Search country..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className={styles.searchInput}
+                />
               </div>
-            )}
+              <div className={styles.countryList}>
+                {filteredCountries.map((country) => (
+                  <button
+                    key={country.code}
+                    type="button"
+                    className={styles.countryOption}
+                    onClick={() => handleCountrySelect(country)}
+                  >
+                    <span>{country.name}</span>
+                    <span className={styles.dialCode}>{country.dialCode}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
         {inputFeedback && (
