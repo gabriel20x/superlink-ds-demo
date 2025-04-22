@@ -1,0 +1,61 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.otpContainer {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.otpInput {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 16px;
+  border: 1px solid var(--border-color, #E2E8F0);
+  border-radius: 8px;
+  background-color: var(--input-background, #F8FAFC);
+  transition: all 0.2s ease;
+  color: var(--text-color, #1A202C);
+}
+
+.otpInput:focus {
+  outline: none;
+  border-color: var(--primary-color, #3182CE);
+  box-shadow: 0 0 0 1px var(--primary-color, #3182CE);
+}
+
+.otpInputError {
+  border-color: var(--error-color, #E53E3E);
+}
+
+.otpInputError:focus {
+  border-color: var(--error-color, #E53E3E);
+  box-shadow: 0 0 0 1px var(--error-color, #E53E3E);
+}
+
+.forgotButton {
+  background: none;
+  border: none;
+  color: var(--primary-color, #3182CE);
+  font-size: 14px;
+  padding: 4px;
+  cursor: pointer;
+  margin-top: 8px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.forgotButton:hover {
+  color: var(--primary-hover-color, #2C5282);
+  text-decoration: underline;
+}
+
+.forgotButton:focus {
+  outline: none;
+  text-decoration: underline;
+} 
