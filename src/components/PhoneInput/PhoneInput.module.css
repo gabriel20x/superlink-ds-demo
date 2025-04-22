@@ -147,7 +147,7 @@
 
 .countryOption {
   display: flex;
-  justify-content: space-between;
+  gap: 8px;
   align-items: center;
   width: 100%;
   padding: 8px 12px;
@@ -156,18 +156,22 @@
   cursor: pointer;
   text-align: left;
   font-size: 14px;
-  color: #14171F;
+  color: #898B8F;
+
 }
 
 .countryOption:hover {
-  background-color: #f3f3f4;
-  border-radius: 4px;
+  background-color: #F4F4F4;
+  color: #14171F;
+  border-radius: 8px;
+  font-weight: 600;
 }
 
 .dialCode {
-  color: #727479;
-  font-size: 14px;
+  font-size: 0.875rem;
+  min-width: 3.125rem;
 }
+
 
 .inputWrapper {
   position: relative;
