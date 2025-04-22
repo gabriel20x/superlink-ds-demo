@@ -1,0 +1,215 @@
+:root {
+  --error-color: #DB4646;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  user-select: none;
+}
+
+.errorText {
+  color: var(--error-color) !important;
+}
+
+.labelWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.label, .inputFeedback {
+  display: flex;
+  gap: 4px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  color: #727479;
+}
+
+.helperText {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 16px;
+  color: #727479;
+}
+
+.phoneInputContainer {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.countrySelector {
+  position: relative;
+  min-width: 100px;
+}
+
+.countryButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 12px;
+  background-color: #f3f3f4;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #14171F;
+
+  & > svg {
+    transition: all 0.2s ease;
+  }
+}
+
+.countryButton:hover {
+  outline: 1px solid #d0d1d2;
+}
+
+.chevron {
+  transition: transform 0.2s ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 280px;
+  max-height: 400px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.searchInputWrapper {
+  padding: 8px;
+}
+
+.searchInput {
+  width: 100%;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 6px;
+  border: 1px solid #d0d1d2;
+  font-size: 14px;
+  outline: none;
+}
+
+.searchInput:focus {
+  border-color: #727479;
+}
+
+.countryList {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.countryOption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+  color: #14171F;
+}
+
+.countryOption:hover {
+  background-color: #f3f3f4;
+  border-radius: 4px;
+}
+
+.dialCode {
+  color: #727479;
+  font-size: 14px;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  padding: 0 16px;
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+}
+
+.hasTrailingIcon {
+  padding-right: 40px;
+}
+
+.trailingIcon {
+  transition: transform 0.2s ease;
+  position: absolute;
+  right: 16px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.trailingIconIsOpen {
+  transform: rotate(180deg);
+}
+
+.input::placeholder {
+  color: var(--placeholder-color, #a0aec0);
+}
+
+.input:disabled {
+  background-color: var(--disabled-background, #edf2f7);
+  cursor: not-allowed;
+}
+
+.inputError {
+  outline: 1px solid var(--error-color);
+  color: var(--error-color);
+}
+
+.inputError:active,
+.inputError:focus,
+.inputError:focus-visible {
+  background-color: transparent;
+  outline: 1px solid var(--error-color);
+}
+
+/* Scrollbar styles */
+.countryList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.countryList::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.countryList::-webkit-scrollbar-thumb {
+  background: #d0d1d2;
+  border-radius: 4px;
+}
+
+.countryList::-webkit-scrollbar-thumb:hover {
+  background: #a0a0a0;
+} 
