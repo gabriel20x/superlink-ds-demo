@@ -3,7 +3,7 @@ import styles from "./Input.module.css";
 import { cn } from "../../utils/cva";
 import { HelpOutlinedIcon, WarningIcon } from "../Icon/icons";
 
-interface InputProps
+export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
   error?: boolean;
   size?: "L" | "M" | "S";

@@ -131,7 +131,7 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
               className={styles.countryButton}
               onClick={() => setIsOpen(!isOpen)}
             >
-              <span>{selectedCountry.dialCode}</span>
+              <span className={styles.countryCode}>{selectedCountry.dialCode}</span>
 
               <input
                 ref={ref}

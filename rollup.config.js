@@ -11,7 +11,8 @@ export default {
       file: 'dist/index.js',
       format: 'cjs',
       sourcemap: true,
-      exports: 'named'
+      exports: 'named',
+      interop: 'auto'
     },
     {
       file: 'dist/index.mjs',
@@ -23,9 +24,13 @@ export default {
   plugins: [
     peerDepsExternal(),
     resolve({
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      preferBuiltins: true
+    }),
+    commonjs({
+      include: /node_modules/,
       extensions: ['.js', '.jsx', '.ts', '.tsx']
     }),
-    commonjs(),
     postcss({
       modules: true,
       extract: true,
@@ -41,9 +46,12 @@ export default {
         module: 'ESNext',
         declaration: true,
         declarationMap: true,
-        sourceMap: true
+        sourceMap: true,
+        jsx: 'react-jsx',
+        target: 'ES2020',
+        lib: ['ES2020', 'DOM', 'DOM.Iterable']
       }
     })
   ],
-  external: ['react', 'react-dom']
+  external: ['react', 'react-dom', 'react-hook-form', '@hookform/resolvers', 'zod']
 };

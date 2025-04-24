@@ -48,6 +48,10 @@
   min-width: 100px;
 }
 
+.countryCode {
+  min-width: 50px;
+}
+
 .countryButton {
   display: flex;
   align-items: center;
