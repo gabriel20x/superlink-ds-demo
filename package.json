@@ -1,19 +1,11 @@
 {
   "name": "@gabriel20x/superlink-components-library",
   "private": false,
-  "version": "0.0.11",
+  "version": "0.0.12",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./dist/*": "./dist/*"
-  },
   "files": [
     "dist"
   ],
@@ -26,6 +18,7 @@
     "@babel/preset-react": "^7.26.3",
     "@chromatic-com/storybook": "^3.2.6",
     "@eslint/js": "^9.21.0",
+    "@hookform/resolvers": "^3.3.4",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
@@ -54,8 +47,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.50.1",
-    "@hookform/resolvers": "^3.3.4",
-    "zod": "^3.22.4",
     "rollup": "^4.39.0",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
@@ -65,13 +56,16 @@
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0",
     "vite-plugin-svgr": "^4.3.0",
-    "vitest": "^3.1.1"
+    "vitest": "^3.1.1",
+    "zod": "^3.22.4",
+    "libphonenumber-js": "^1.12.7",
+    "react-phone-input-2": "^2.15.1"
   },
   "peerDependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.50.1",
-    "@hookform/resolvers": "^3.3.4",
     "zod": "^3.22.4"
   },
   "eslintConfig": {

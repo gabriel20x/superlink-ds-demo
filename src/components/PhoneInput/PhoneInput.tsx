@@ -7,7 +7,8 @@ import {
   SearchIcon,
   WarningIcon,
 } from "../Icon/icons";
-import { CountryCode, countryCodes } from "../../utils/countries";
+import { Country, countryCodes } from "../../utils/countries";
+import { formatPhoneNumber, isValidPhoneNumber, normalizePhoneNumber } from "../../utils/phonePatterns";
 
 export interface PhoneInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
@@ -17,9 +18,11 @@ export interface PhoneInputProps
   tooltip?: string;
   inputFeedback?: string;
   inputLabel?: string;
-  onCountryChange?: (country: CountryCode) => void;
+  onCountryChange?: (country: Country) => void;
   trailingIcon?: React.ReactNode;
   onTrailingIconClick?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isValid?: (value: string, country: Country) => boolean | string;
 }
 
 export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
@@ -32,21 +35,23 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
       inputFeedback,
       inputLabel,
       className,
-      value,
       onChange,
       onCountryChange,
       trailingIcon,
       onTrailingIconClick,
+      isValid,
       ...props
     },
     ref
   ) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedCountry, setSelectedCountry] = useState<CountryCode>(
+    const [selectedCountry, setSelectedCountry] = useState<Country>(
       countryCodes[0]
     );
     const [dropdownHeight, setDropdownHeight] = useState(0);
     const [searchQuery, setSearchQuery] = useState("");
+    const [formattedValue, setFormattedValue] = useState("");
+    const [validationError, setValidationError] = useState<string | null>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -56,10 +61,58 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
         country.dialCode.includes(searchQuery)
     );
 
-    const handleCountrySelect = (country: CountryCode) => {
+    const validatePhoneNumber = (value: string, country: Country): boolean | string => {
+      if (isValid) {
+        return isValid(value, country);
+      }
+
+      // Use libphonenumber-js for validation
+      if (!isValidPhoneNumber(value, country)) {
+        return "Please enter a valid phone number";
+      }
+
+      return true;
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = e.target.value;
+      const formatted = formatPhoneNumber(newValue, selectedCountry);
+      setFormattedValue(formatted);
+      
+      // Validate the phone number
+      const validationResult = validatePhoneNumber(newValue, selectedCountry);
+      if (validationResult !== true) {
+        setValidationError(validationResult as string);
+      } else {
+        setValidationError(null);
+      }
+      
+      if (onChange) {
+        // Create a new event with the normalized value
+        const normalizedValue = normalizePhoneNumber(newValue, selectedCountry);
+        const event = {
+          ...e,
+          target: {
+            ...e.target,
+            value: normalizedValue || formatted,
+          },
+        };
+        onChange(event as React.ChangeEvent<HTMLInputElement>);
+      }
+    };
+
+    const handleCountrySelect = (country: Country) => {
       setSelectedCountry(country);
       setIsOpen(false);
       onCountryChange?.(country);
+      
+      // Revalidate when country changes
+      const validationResult = validatePhoneNumber(formattedValue, country);
+      if (validationResult !== true) {
+        setValidationError(validationResult as string);
+      } else {
+        setValidationError(null);
+      }
     };
 
     useEffect(() => {
@@ -136,9 +189,11 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
               <input
                 ref={ref}
                 className={inputClasses}
-                value={value}
-                onChange={onChange}
+                value={formattedValue}
+                onChange={handleInputChange}
                 type="tel"
+                pattern="[0-9]*"
+                inputMode="numeric"
                 onClick={(e) => e.stopPropagation()}
                 {...props}
               />
@@ -190,10 +245,10 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
             </div>
           </div>
         </div>
-        {inputFeedback && (
-          <div className={cn(styles.inputFeedback, error && styles.errorText)}>
+        {(inputFeedback || validationError) && (
+          <div className={cn(styles.inputFeedback, (error || validationError) && styles.errorText)}>
             <WarningIcon width={16} height={16} />
-            {inputFeedback}
+            {validationError || inputFeedback}
           </div>
         )}
       </div>

@@ -1,10 +1,12 @@
-export interface CountryCode {
-  code: string;
+import { CountryCode as LibCountryCode } from 'libphonenumber-js';
+
+export interface Country {
+  code: LibCountryCode;
   name: string;
   dialCode: string;
 }
 
-export const countryCodes: CountryCode[] = [
+export const countryCodes: Country[] = [
   { code: "AF", name: "Afghanistan", dialCode: "+93" },
   { code: "AL", name: "Albania", dialCode: "+355" },
   { code: "DZ", name: "Algeria", dialCode: "+213" },
