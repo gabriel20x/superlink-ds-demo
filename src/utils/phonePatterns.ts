@@ -1,6 +1,23 @@
 import { parsePhoneNumber, isValidPhoneNumber as libIsValidPhoneNumber } from 'libphonenumber-js';
 import { Country, countryCodes } from './countries';
 
+export const DEV_NUMBERS = [
+  "1111111111",
+  "2222222222",
+  "3333333333",
+  "4444444444",
+  "5555555555",
+  "6666666666",
+  "7777777777",
+  "8888888888",
+  "9999999999",
+  "0000000000",
+  "1234567890",
+  "9876543210",
+  "1234509876",
+  "9876543210",
+]
+
 /**
  * Formats a phone number according to the national format of the specified country
  * @param {string} input - The phone number to format

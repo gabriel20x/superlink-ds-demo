@@ -2,7 +2,7 @@ import React, { forwardRef, useRef, useEffect } from 'react';
 import styles from './OtpInput.module.css';
 import { cn } from '../../utils/cva';
 
-interface OtpInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+export interface OtpInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   length?: number;
   value: string;
   onChange: (value: string) => void;

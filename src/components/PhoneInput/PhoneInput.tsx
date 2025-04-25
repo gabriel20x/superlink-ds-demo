@@ -9,6 +9,7 @@ import {
 } from "../Icon/icons";
 import { Country, countryCodes } from "../../utils/countries";
 import { formatPhoneNumber, isValidPhoneNumber, normalizePhoneNumber } from "../../utils/phonePatterns";
+import { isDevelopmentEnvironment } from "../../hooks/usePhoneInput";
 
 /**
  * Props for the PhoneInput component
@@ -117,7 +118,7 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState<Country>(
-      countryCodes[0]
+      isDevelopmentEnvironment() ? countryCodes.find(c => c.dialCode === '+91') || countryCodes[0] : countryCodes.find(c => c.dialCode === '+1') || countryCodes[0]
     );
     const [dropdownHeight, setDropdownHeight] = useState(0);
     const [searchQuery, setSearchQuery] = useState("");

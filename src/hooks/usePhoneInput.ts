@@ -1,6 +1,12 @@
 import { useState, useCallback, useEffect } from 'react';
-import { Country } from '../utils/countries';
-import { formatPhoneNumber, isValidPhoneNumber } from '../utils/phonePatterns';
+import { Country, countryCodes } from '../utils/countries';
+import { DEV_NUMBERS, isValidPhoneNumber } from '../utils/phonePatterns';
+import { parsePhoneNumber } from 'libphonenumber-js';
+
+export const isDevelopmentEnvironment = () => {
+  if (typeof window === 'undefined') return false;
+  return window.location.hostname === 'localhost' || window.location.hostname === 'develop-v2.superlink.io';
+};
 
 export interface UsePhoneInputProps {
   /** 
@@ -90,6 +96,8 @@ export const usePhoneInput = ({
   const [debouncedPhoneNumber, setDebouncedPhoneNumber] = useState('');
   /** Formatted version of the phone number according to the country's format */
   const [formattedPhoneNumber, setFormattedPhoneNumber] = useState('');
+  /** Country code of the phone number */
+  const [countryCode, setCountryCode] = useState<Country>(countryCodes[0]);
 
   /**
    * Handles phone number input changes
@@ -109,16 +117,31 @@ export const usePhoneInput = ({
   const handleValidation = useCallback((value: string, country: Country) => {
     // Remove all non-digit characters for validation
     const digitsOnly = value.replace(/\D/g, '');
+    
+    if (isDevelopmentEnvironment() && country.code === 'IN' && DEV_NUMBERS.includes(digitsOnly)) {
+      // For development environment, always return true and format as +91 xxxxx-xxxxx
+      const formatted = `+91 ${digitsOnly.slice(0, 5)}-${digitsOnly.slice(5, 10)}`;
+      console.log('formatted', formatted);
+      setFormattedPhoneNumber(formatted);
+      setIsValid(true);
+      return true;
+    }
+
     const minLength = country.dialCode.replace(/\D/g, '').length + 7; // Country code digits + minimum 7 digits
     
     // Check if the number has enough digits
     const hasEnoughDigits = digitsOnly.length >= minLength;
+    if (!hasEnoughDigits) {
+      setIsValid(false);
+      return false;
+    }
     
     // Check if the number is valid according to the country's format
     const isFormatValid = isValidPhoneNumber(digitsOnly, country);
     
     // Format the phone number
-    const formatted = formatPhoneNumber(digitsOnly, country);
+    const parsedNumber = parsePhoneNumber(digitsOnly, country.code);
+    const formatted = parsedNumber.format('E.164')
     setFormattedPhoneNumber(formatted);
     
     const isValid = hasEnoughDigits && isFormatValid;
@@ -133,6 +156,7 @@ export const usePhoneInput = ({
   const handleCountryChange = useCallback((country: Country) => {
     // Revalidate when country changes
     handleValidation(phoneNumber, country);
+    setCountryCode(country);
   }, [phoneNumber, handleValidation]);
 
   // Debounce effect
@@ -155,6 +179,8 @@ export const usePhoneInput = ({
     formattedPhoneNumber,
     /** Validation state of the phone number */
     isValid,
+    /** Country code of the phone number */
+    countryCode,
     /** Handler for phone number input changes */
     handlePhoneChange,
     /** Handler for phone number validation */

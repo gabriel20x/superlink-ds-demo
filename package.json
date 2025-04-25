@@ -1,7 +1,7 @@
 {
   "name": "@gabriel20x/superlink-components-library",
   "private": false,
-  "version": "0.0.13",
+  "version": "0.0.18",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -9,6 +9,14 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./dist/*": "./dist/*"
+  },
   "scripts": {
     "build": "rollup -c",
     "storybook": "storybook dev -p 6006",

@@ -51,7 +51,7 @@ export const Disabled: Story = {
 const PhoneInputWithEvents = () => {
   const [showNumber, setShowNumber] = useState(false);
   const {
-    phoneNumber,
+    formattedPhoneNumber,
     isValid,
     handlePhoneChange,
     handleValidation,
@@ -59,7 +59,7 @@ const PhoneInputWithEvents = () => {
   } = usePhoneInput();
 
   const sendPhoneNumber = () => {
-    console.log(phoneNumber);
+    console.log(formattedPhoneNumber);
     setShowNumber(true);
   }
 
@@ -81,7 +81,7 @@ const PhoneInputWithEvents = () => {
       </Button>
       {showNumber && (
         <div style={{ marginTop: '1rem' }}>
-          <strong>Phone Number:</strong> {phoneNumber}
+          <strong>Phone Number:</strong> {formattedPhoneNumber}
         </div>
       )}
     </div>
