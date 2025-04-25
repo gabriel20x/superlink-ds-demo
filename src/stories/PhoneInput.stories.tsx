@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { PhoneInput } from '../components/PhoneInput/PhoneInput';
+import { Button } from '../components/Button/Button';
+import { usePhoneInput } from '../hooks/usePhoneInput';
+import { useState } from 'react';
 
 const meta = {
   title: 'Components/PhoneInput',
@@ -20,14 +23,6 @@ export const Default: Story = {
   },
 };
 
-export const WithHelperText: Story = {
-  args: {
-    placeholder: 'Enter phone number',
-    inputLabel: 'Phone Number',
-    helperText: 'Include country code',
-  },
-};
-
 export const WithError: Story = {
   args: {
     placeholder: 'Enter phone number',
@@ -45,30 +40,6 @@ export const WithTooltip: Story = {
   },
 };
 
-export const Small: Story = {
-  args: {
-    placeholder: 'Enter phone number',
-    inputLabel: 'Phone Number',
-    size: 'S',
-  },
-};
-
-export const Medium: Story = {
-  args: {
-    placeholder: 'Enter phone number',
-    inputLabel: 'Phone Number',
-    size: 'M',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    placeholder: 'Enter phone number',
-    inputLabel: 'Phone Number',
-    size: 'L',
-  },
-};
-
 export const Disabled: Story = {
   args: {
     placeholder: 'Enter phone number',
@@ -77,11 +48,44 @@ export const Disabled: Story = {
   },
 };
 
-export const WithEvents: Story = {
-  args: {
-    placeholder: 'Enter phone number',
-    inputLabel: 'Phone Number',
-    onChange: (e) => console.log('Phone number changed:', e.target.value),
+const PhoneInputWithEvents = () => {
+  const [showNumber, setShowNumber] = useState(false);
+  const {
+    phoneNumber,
+    isValid,
+    handlePhoneChange,
+    handleValidation,
+    handleCountryChange,
+  } = usePhoneInput({
+    onPhoneChange: (value) => console.log('Phone number changed:', value),
     onCountryChange: (country) => console.log('Country changed:', country),
-  },
+  });
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <PhoneInput
+        placeholder="Enter phone number"
+        inputLabel="Phone Number"
+        onChange={handlePhoneChange}
+        onCountryChange={handleCountryChange}
+        isValid={handleValidation}
+      />
+      <Button 
+        onClick={() => setShowNumber(true)}
+        disabled={!isValid}
+        label="Show Phone Number"
+      >
+        Show Phone Number
+      </Button>
+      {showNumber && (
+        <div style={{ marginTop: '1rem' }}>
+          <strong>Phone Number:</strong> {phoneNumber}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const WithEvents: Story = {
+  render: () => <PhoneInputWithEvents />,
 }; 
