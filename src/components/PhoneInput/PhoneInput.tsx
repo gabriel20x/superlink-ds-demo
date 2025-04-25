@@ -76,6 +76,13 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.value;
+      
+      // Remove all non-digit characters and check length
+      const digitsOnly = newValue.replace(/\D/g, '');
+      if (digitsOnly.length > 15) {
+        return; // Don't update if exceeding 15 digits
+      }
+      
       const formatted = formatPhoneNumber(newValue, selectedCountry);
       setFormattedValue(formatted);
       
@@ -137,14 +144,17 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
     const wrapperClasses = cn(
       styles.wrapper,
       styles[`size${size}`],
-      error && styles.wrapperError
     );
 
     const inputClasses = cn(
       styles.input,
-      error && styles.inputError,
       trailingIcon && styles.hasTrailingIcon,
       className
+    );
+
+    const countryButtonClasses = cn(
+      styles.countryButton,
+      error && styles.countryButtonError
     );
 
     useEffect(() => {
@@ -181,7 +191,7 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
             <button
               ref={buttonRef}
               type="button"
-              className={styles.countryButton}
+              className={countryButtonClasses}
               onClick={() => setIsOpen(!isOpen)}
             >
               <span className={styles.countryCode}>{selectedCountry.dialCode}</span>

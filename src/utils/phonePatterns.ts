@@ -1,5 +1,5 @@
 import { parsePhoneNumber, isValidPhoneNumber as libIsValidPhoneNumber } from 'libphonenumber-js';
-import { Country } from './countries';
+import { Country, countryCodes } from './countries';
 
 /**
  * Formats a phone number according to the national format of the specified country
@@ -50,7 +50,10 @@ export const isValidPhoneNumber = (input: string, country: Country): boolean => 
 export const getCountryCode = (input: string): Country | undefined => {
   try {
     const phoneNumber = parsePhoneNumber(input);
-    return phoneNumber?.country;
+    if (!phoneNumber?.country) return undefined;
+    
+    // Find the matching country from our list
+    return countryCodes.find((c: Country) => c.code === phoneNumber.country);
   } catch {
     return undefined;
   }
@@ -59,10 +62,10 @@ export const getCountryCode = (input: string): Country | undefined => {
 /**
  * Formats a phone number in international format
  * @param {string} input - The phone number to format
- * @param {Country} [country='US'] - The country code to use for formatting
+ * @param {Country} country - The country code to use for formatting
  * @returns {string} The internationally formatted phone number, or the original input if formatting fails
  */
-export const getFormattedNumber = (input: string, country: Country = 'US'): string => {
+export const getFormattedNumber = (input: string, country: Country): string => {
   try {
     const phoneNumber = parsePhoneNumber(input, country.code);
     if (phoneNumber) {
@@ -77,10 +80,10 @@ export const getFormattedNumber = (input: string, country: Country = 'US'): stri
 /**
  * Formats a phone number in E.164 format (e.g., +12125551234)
  * @param {string} input - The phone number to format
- * @param {Country} [country='US'] - The country code to use for formatting
+ * @param {Country} country - The country code to use for formatting
  * @returns {string} The E.164 formatted phone number, or the original input if formatting fails
  */
-export const getE164Format = (input: string, country: Country = 'US'): string => {
+export const getE164Format = (input: string, country: Country): string => {
   try {
     const phoneNumber = parsePhoneNumber(input, country.code);
     if (phoneNumber) {

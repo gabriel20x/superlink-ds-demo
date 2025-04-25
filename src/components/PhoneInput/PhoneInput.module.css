@@ -50,6 +50,7 @@
 
 .countryCode {
   min-width: 50px;
+  color: #14171F;
 }
 
 .countryButton {
@@ -78,6 +79,12 @@
 
 .countryButton:hover {
   outline: 1px solid #d0d1d2;
+}
+
+.countryButtonError {
+  outline: 1px solid var(--error-color);
+  color: var(--error-color);
+  border-radius: 8px;
 }
 
 .chevron {
@@ -219,11 +226,6 @@
 .input:disabled {
   background-color: var(--disabled-background, #edf2f7);
   cursor: not-allowed;
-}
-
-.inputError {
-  outline: 1px solid var(--error-color);
-  color: var(--error-color);
 }
 
 .inputError:active,
