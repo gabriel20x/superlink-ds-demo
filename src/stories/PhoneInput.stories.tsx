@@ -56,10 +56,12 @@ const PhoneInputWithEvents = () => {
     handlePhoneChange,
     handleValidation,
     handleCountryChange,
-  } = usePhoneInput({
-    onPhoneChange: (value) => console.log('Phone number changed:', value),
-    onCountryChange: (country) => console.log('Country changed:', country),
-  });
+  } = usePhoneInput();
+
+  const sendPhoneNumber = () => {
+    console.log(phoneNumber);
+    setShowNumber(true);
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -71,7 +73,7 @@ const PhoneInputWithEvents = () => {
         isValid={handleValidation}
       />
       <Button 
-        onClick={() => setShowNumber(true)}
+        onClick={sendPhoneNumber}
         disabled={!isValid}
         label="Show Phone Number"
       >

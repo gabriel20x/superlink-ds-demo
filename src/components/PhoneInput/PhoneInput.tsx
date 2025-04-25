@@ -10,21 +10,82 @@ import {
 import { Country, countryCodes } from "../../utils/countries";
 import { formatPhoneNumber, isValidPhoneNumber, normalizePhoneNumber } from "../../utils/phonePatterns";
 
+/**
+ * Props for the PhoneInput component
+ * @extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">
+ */
 export interface PhoneInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
+  /** Indicates if the input is in an error state */
   error?: boolean;
+  /** Size of the input field */
   size?: "L" | "M" | "S";
+  /** Helper text displayed below the input */
   helperText?: string;
+  /** Tooltip text displayed when hovering over the help icon */
   tooltip?: string;
+  /** Feedback message displayed below the input */
   inputFeedback?: string;
+  /** Label text for the input */
   inputLabel?: string;
+  /** Callback fired when the country selection changes */
   onCountryChange?: (country: Country) => void;
+  /** Custom trailing icon component */
   trailingIcon?: React.ReactNode;
+  /** Callback fired when the trailing icon is clicked */
   onTrailingIconClick?: () => void;
+  /** Callback fired when the input value changes */
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  /** Custom validation function for the phone number */
   isValid?: (value: string, country: Country) => boolean | string;
 }
 
+/**
+ * A phone input component with country selection and validation.
+ * 
+ * @remarks
+ * This component is designed to be used with the `usePhoneInput` hook for proper state management and validation.
+ * Using this component without the hook may result in unexpected behavior.
+ * 
+ * @example
+ * ```tsx
+ * const PhoneInputWithHook = () => {
+ *   const {
+ *     phoneNumber,
+ *     isValid,
+ *     handlePhoneChange,
+ *     handleValidation,
+ *     handleCountryChange,
+ *   } = usePhoneInput();
+ * 
+ *   return (
+ *     <PhoneInput
+ *       value={phoneNumber}
+ *       onChange={handlePhoneChange}
+ *       onCountryChange={handleCountryChange}
+ *       isValid={handleValidation}
+ *       inputLabel="Phone Number"
+ *     />
+ *   );
+ * };
+ * ```
+ * 
+ * @example
+ * ```tsx
+ * // Warning: Using without the hook (not recommended)
+ * const PhoneInputWithoutHook = () => {
+ *   const [value, setValue] = useState('');
+ * 
+ *   return (
+ *     <PhoneInput
+ *       value={value}
+ *       onChange={(e) => setValue(e.target.value)}
+ *       inputLabel="Phone Number"
+ *     />
+ *   );
+ * };
+ * ```
+ */
 export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
   (
     {
@@ -44,6 +105,16 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
     },
     ref
   ) => {
+    // Warn if not using the hook
+    useEffect(() => {
+      if (typeof window !== 'undefined' && window.location.hostname === 'localhost' && !isValid) {
+        console.warn(
+          'PhoneInput: It is recommended to use this component with the usePhoneInput hook ' +
+          'for proper validation and formatting. Using without the hook may result in unexpected behavior.'
+        );
+      }
+    }, [isValid]);
+
     const [isOpen, setIsOpen] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState<Country>(
       countryCodes[0]
@@ -61,6 +132,12 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
         country.dialCode.includes(searchQuery)
     );
 
+    /**
+     * Validates the phone number using either the custom validation function or the default validation
+     * @param value - The phone number to validate
+     * @param country - The selected country
+     * @returns boolean or string indicating validation result
+     */
     const validatePhoneNumber = (value: string, country: Country): boolean | string => {
       if (isValid) {
         return isValid(value, country);
@@ -74,6 +151,10 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
       return true;
     };
 
+    /**
+     * Handles input changes, formatting, and validation
+     * @param e - React change event
+     */
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.value;
       
@@ -108,6 +189,10 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
       }
     };
 
+    /**
+     * Handles country selection and revalidates the current phone number
+     * @param country - The newly selected country
+     */
     const handleCountrySelect = (country: Country) => {
       setSelectedCountry(country);
       setIsOpen(false);
