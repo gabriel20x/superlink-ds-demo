@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { Country } from '../utils/countries';
 import { formatPhoneNumber, isValidPhoneNumber } from '../utils/phonePatterns';
 
-interface UsePhoneInputProps {
+export interface UsePhoneInputProps {
   /** 
    * Time in milliseconds to wait before updating the debounced value
    * @default 300
