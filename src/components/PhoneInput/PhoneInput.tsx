@@ -83,11 +83,11 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
         return; // Don't update if exceeding 15 digits
       }
       
-      const formatted = formatPhoneNumber(newValue, selectedCountry);
+      const formatted = formatPhoneNumber(digitsOnly, selectedCountry);
       setFormattedValue(formatted);
       
       // Validate the phone number
-      const validationResult = validatePhoneNumber(newValue, selectedCountry);
+      const validationResult = validatePhoneNumber(digitsOnly, selectedCountry);
       if (validationResult !== true) {
         setValidationError(validationResult as string);
       } else {
@@ -96,7 +96,7 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
       
       if (onChange) {
         // Create a new event with the normalized value
-        const normalizedValue = normalizePhoneNumber(newValue, selectedCountry);
+        const normalizedValue = normalizePhoneNumber(digitsOnly, selectedCountry);
         const event = {
           ...e,
           target: {
