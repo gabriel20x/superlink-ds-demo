@@ -1,14 +1,17 @@
 import React, { forwardRef, useRef, useEffect } from 'react';
 import styles from './OtpInput.module.css';
 import { cn } from '../../utils/cva';
+import { WarningIcon } from '../Icon/icons';
+
+type OtpVariants = 'small' | 'large';
 
 export interface OtpInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   length?: number;
   value: string;
   onChange: (value: string) => void;
   error?: boolean;
-  onForgotClick?: () => void;
-  forgotText?: string;
+  inputFeedback?: string;
+  variant?: OtpVariants;
 }
 
 export const OtpInput = forwardRef<HTMLInputElement, OtpInputProps>(({
@@ -17,8 +20,8 @@ export const OtpInput = forwardRef<HTMLInputElement, OtpInputProps>(({
   onChange,
   error = false,
   className,
-  onForgotClick,
-  forgotText,
+  inputFeedback = "Invalid Code. Try Again.",
+  variant = 'small',
   ...props
 }, ref) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -74,21 +77,21 @@ export const OtpInput = forwardRef<HTMLInputElement, OtpInputProps>(({
             className={cn(
               styles.otpInput,
               error && styles.otpInputError,
+              variant === 'small' && styles.otpInputSmall,
+              variant === 'large' && styles.otpInputLarge,
               className
             )}
             {...props}
           />
         ))}
       </div>
-      {forgotText && onForgotClick && (
-        <button 
-          type="button" 
-          onClick={onForgotClick} 
-          className={styles.forgotButton}
-        >
-          {forgotText}
-        </button>
-      )}
+      
+      {error &&inputFeedback && (
+          <div className={cn(styles.inputFeedback, error && styles.errorText)}>
+            <WarningIcon width={16} height={16} />
+            {inputFeedback}
+          </div>
+        )}
     </div>
   );
 });

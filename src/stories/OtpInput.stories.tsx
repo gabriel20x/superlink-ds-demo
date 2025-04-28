@@ -32,7 +32,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-const FormExample = () => {
+const FormExample = ({ variant = 'small' }: { variant?: 'small' | 'large' }) => {
   const {
     handleSubmit,
     setValue,
@@ -58,10 +58,8 @@ const FormExample = () => {
           value={otpValue}
           onChange={(value) => setValue('otp', value)}
           error={!!errors.otp}
+          variant={variant}
         />
-        {errors.otp && (
-          <p className="text-red-500 text-sm mt-1 text-center">{errors.otp.message}</p>
-        )}
       </div>
 
       <Button
@@ -73,8 +71,12 @@ const FormExample = () => {
   );
 };
 
-export const Default: Story = {
-  render: () => <FormExample />,
+export const Small: Story = {
+  render: () => <FormExample variant="small" />,
+};
+
+export const Large: Story = {
+  render: () => <FormExample variant="large" />,
 };
 
 // Individual field examples
