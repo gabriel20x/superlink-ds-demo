@@ -7,7 +7,8 @@ import postcss from 'rollup-plugin-postcss';
 export default {
   input: {
     index: 'src/index.ts',
-    icons: 'src/components/Icon/icons.tsx'
+    icons: 'src/components/Icon/index.ts',
+    assets: 'src/assets/icons.tsx'
   },
   output: [
     {
