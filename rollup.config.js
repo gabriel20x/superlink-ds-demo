@@ -5,17 +5,22 @@ import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 
 export default {
-  input: 'src/index.ts',
+  input: {
+    index: 'src/index.ts',
+    icons: 'src/components/Icon/icons.tsx'
+  },
   output: [
     {
-      file: 'dist/index.js',
+      dir: 'dist',
+      entryFileNames: '[name].js',
       format: 'cjs',
       sourcemap: true,
       exports: 'named',
       interop: 'auto'
     },
     {
-      file: 'dist/index.mjs',
+      dir: 'dist',
+      entryFileNames: '[name].mjs',
       format: 'esm',
       sourcemap: true,
       exports: 'named'

@@ -1,5 +1,5 @@
 import styles from "./stepper.module.css";
-import { StepperItems } from "./StepperItems";
+import { StepperItem } from "./StepperItem";
 import React, { ComponentProps, useEffect, useState } from "react";
 const useMediaQuery = (query: string) => {
   const [matches, setMatches] = useState(false);
@@ -17,7 +17,7 @@ const useMediaQuery = (query: string) => {
   return matches;
 };
 
-interface StepperProps {
+export interface StepperProps {
     children: React.ReactNode;
 }
 
@@ -39,8 +39,8 @@ interface StepperProps {
 export const Stepper = ({ children }: StepperProps) => {
   const isMobile = useMediaQuery("(max-width: 1023px)");
 
-  const isValidChild = (child: React.ReactNode): boolean => {
-    return React.isValidElement(child) && child.type === StepperItems;
+  const isValidChild = (child: React.ReactNode): boolean => { 
+    return React.isValidElement(child) && child.type === StepperItem;
   };
 
   const validatedChildren = React.Children.map(children, (child) => {
@@ -51,7 +51,7 @@ export const Stepper = ({ children }: StepperProps) => {
     if (!React.isValidElement(child)) {
       return null;
     }
-    return React.cloneElement(child as React.ReactElement<ComponentProps<typeof StepperItems>>, {
+    return React.cloneElement(child as React.ReactElement<ComponentProps<typeof StepperItem>>, {
       variant: isMobile ? "bar" : "default"
     });
   });

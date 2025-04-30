@@ -16,6 +16,7 @@
   display: flex;
   gap: 8px;
   width: 100%;
+  justify-content: space-between;
 }
 
 .otpInput {
@@ -44,7 +45,6 @@
 
 .otpInputError:focus {
   outline-color: var(--error-color, #DB4646);
-  box-shadow: 0 0 0 1px var(--error-color, #DB4646);
 }
 
 .forgotButton {

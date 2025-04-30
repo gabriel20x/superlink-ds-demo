@@ -2,17 +2,17 @@ import styles from "./stepper.module.css";
 import { CheckOutlinedIcon, CheckFullIcon } from "../Icon/icons";
 import { cn } from "../../utils/cva";
 
-interface StepperItemsProps {
+export interface StepperItemProps {
   label: string;
   state: "inProgress" | "completed" | "pending";
   variant?: "default" | "bar";
 }
 
-export const StepperItems = ({
+export const StepperItem = ({
   label,
   state = "pending",
   variant = "default",
-}: StepperItemsProps) => {
+}: StepperItemProps) => {
   if (variant === "bar") {
     return (
       <div className={cn(styles.stepperItemBar, state === "completed" && styles.itemBarCompleted, state === "pending" && styles.itemBarPending, state === "inProgress" && styles.itemBarInProgress)}/>

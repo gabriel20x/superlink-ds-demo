@@ -1,7 +1,7 @@
 {
   "name": "@gabriel20x/superlink-components-library",
   "private": false,
-  "version": "0.0.18",
+  "version": "0.0.23",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -14,6 +14,11 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./icons": {
+      "import": "./dist/icons.mjs",
+      "require": "./dist/icons.js",
+      "types": "./dist/icons.d.ts"
     },
     "./dist/*": "./dist/*"
   },

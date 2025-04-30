@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 
 import { Stepper } from '../components/Stepper/Stepper';
-import { StepperItems } from '../components/Stepper/StepperItems';
+import { StepperItem } from '../components/Stepper/StepperItem';
 import { withCard } from './decorators/withCard';
 import { Button } from '../components/Button/Button';
 
@@ -33,9 +33,9 @@ type Story = StoryObj<typeof Stepper>;
 export const Default: Story = {
     render: () => (
         <Stepper>
-          <StepperItems label="Completed" state="completed" />
-          <StepperItems label="In Progress" state="inProgress" />
-          <StepperItems label="Pending" state="pending" />
+          <StepperItem label="Completed" state="completed" />
+          <StepperItem label="In Progress" state="inProgress" />
+          <StepperItem label="Pending" state="pending" />
         </Stepper>
     )
 }
@@ -66,7 +66,7 @@ const WithActionsComponent = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
       <Stepper>
         {steps.map((step, index) => (
-          <StepperItems
+          <StepperItem
             key={index}
             label={step.label}
             state={step.state as "completed" | "inProgress" | "pending"}
