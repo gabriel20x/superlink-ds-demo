@@ -1,0 +1,103 @@
+:root {
+  --error-color: #DB4646;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  user-select: none;
+}
+
+.errorText {
+  color: var(--error-color) !important;
+}
+
+.labelWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Change for Typography as label */
+
+
+.label, .inputFeedback {
+    display: flex;
+    gap: 4px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    color: #727479;
+}
+
+.helperText {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px;
+    color: #727479;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  padding: 0 16px;
+  font-size: 16px;
+  padding-left: 48px;
+  border-radius: 100px;
+  border: none;
+  background-color: transparent;
+  color: #14171F;
+  outline: 1px solid #d0d1d2;
+  font-size: 16px;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+}
+
+.trailingIcon {
+  position: absolute;
+  left: 16px;
+  max-height: 24px;
+  max-width: 24px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.input::placeholder {
+  color: var(--placeholder-color, #a0aec0);
+}
+
+.input:hover {
+  outline: 1px solid #d0d1d2;
+}
+
+.input:disabled {
+  background-color: var(--disabled-background, #edf2f7);
+  cursor: not-allowed;
+}
+
+.inputError {
+  outline: 1px solid var(--error-color);
+  color: var(--error-color);
+}
+
+.inputError:active,
+.inputError:focus,
+.inputError:focus-visible {
+  background-color: transparent;
+  outline: 1px solid var(--error-color);
+}
