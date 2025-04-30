@@ -3,12 +3,13 @@ import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
+import image from '@rollup/plugin-image';
 
 export default {
   input: {
     index: 'src/index.ts',
     icons: 'src/components/Icon/index.ts',
-    assets: 'src/assets/icons.tsx'
+    assets: 'src/assets/index.ts'
   },
   output: [
     {
@@ -30,13 +31,14 @@ export default {
   plugins: [
     peerDepsExternal(),
     resolve({
-      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.png'],
       preferBuiltins: true
     }),
     commonjs({
       include: /node_modules/,
       extensions: ['.js', '.jsx', '.ts', '.tsx']
     }),
+    image(),
     postcss({
       modules: true,
       extract: true,
