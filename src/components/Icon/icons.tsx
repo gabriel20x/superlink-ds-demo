@@ -16,7 +16,7 @@ export const ArrowBackIcon = ({
   <svg
     width={width}
     height={height}
-    viewBox="0 0 16 16"
+    viewBox="0 1 14 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
@@ -320,6 +320,124 @@ export const SearchIcon = ({
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+    </g>
+  </svg>
+);
+
+export const LoadingIcon = ({
+  fill = "currentColor",
+  width = 24,
+  height = 24,
+  className,
+}: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox={`${width} ${height} ${100 - 2 * width} ${100 - 2 * height}`}
+    preserveAspectRatio="xMidYMid"
+    width={width}
+    height={height}
+    style={{ shapeRendering: 'auto', display: 'block', background: 'transparent' }}
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    className={className}
+  >
+    <g fill={fill}>
+      <g transform="rotate(0 50 50)">
+        <rect height="10" width="10" ry="5" rx="5" y="24" x="45">
+          <animate
+            repeatCount="indefinite"
+            begin="-1.9886363636363635s"
+            dur="2.272727272727273s"
+            keyTimes="0;1"
+            values="1;0"
+            attributeName="opacity"
+          ></animate>
+        </rect>
+      </g>
+      <g transform="rotate(45 50 50)">
+        <rect height="10" width="10" ry="5" rx="5" y="24" x="45">
+          <animate
+            repeatCount="indefinite"
+            begin="-1.7045454545454546s"
+            dur="2.272727272727273s"
+            keyTimes="0;1"
+            values="1;0"
+            attributeName="opacity"
+          ></animate>
+        </rect>
+      </g>
+      <g transform="rotate(90 50 50)">
+        <rect height="10" width="10" ry="5" rx="5" y="24" x="45">
+          <animate
+            repeatCount="indefinite"
+            begin="-1.4204545454545454s"
+            dur="2.272727272727273s"
+            keyTimes="0;1"
+            values="1;0"
+            attributeName="opacity"
+          ></animate>
+        </rect>
+      </g>
+      <g transform="rotate(135 50 50)">
+        <rect height="10" width="10" ry="5" rx="5" y="24" x="45">
+          <animate
+            repeatCount="indefinite"
+            begin="-1.1363636363636365s"
+            dur="2.272727272727273s"
+            keyTimes="0;1"
+            values="1;0"
+            attributeName="opacity"
+          ></animate>
+        </rect>
+      </g>
+      <g transform="rotate(180 50 50)">
+        <rect height="10" width="10" ry="5" rx="5" y="24" x="45">
+          <animate
+            repeatCount="indefinite"
+            begin="-0.8522727272727273s"
+            dur="2.272727272727273s"
+            keyTimes="0;1"
+            values="1;0"
+            attributeName="opacity"
+          ></animate>
+        </rect>
+      </g>
+      <g transform="rotate(225 50 50)">
+        <rect height="10" width="10" ry="5" rx="5" y="24" x="45">
+          <animate
+            repeatCount="indefinite"
+            begin="-0.5681818181818182s"
+            dur="2.272727272727273s"
+            keyTimes="0;1"
+            values="1;0"
+            attributeName="opacity"
+          ></animate>
+        </rect>
+      </g>
+      <g transform="rotate(270 50 50)">
+        <rect height="10" width="10" ry="5" rx="5" y="24" x="45">
+          <animate
+            repeatCount="indefinite"
+            begin="-0.2840909090909091s"
+            dur="2.272727272727273s"
+            keyTimes="0;1"
+            values="1;0"
+            attributeName="opacity"
+          ></animate>
+        </rect>
+      </g>
+      <g transform="rotate(315 50 50)">
+        <rect height="10" width="10" ry="5" rx="5" y="24" x="45">
+          <animate
+            repeatCount="indefinite"
+            begin="0s"
+            dur="2.272727272727273s"
+            keyTimes="0;1"
+            values="1;0"
+            attributeName="opacity"
+          ></animate>
+        </rect>
+      </g>
+      <g></g>
     </g>
   </svg>
 );

@@ -26,7 +26,9 @@
     box-shadow: 0px 0px 0px 2px #14171F;
   } */
   &:disabled {
-    background: #D0D1D2;
+    &:not(.loading) {
+      background: #D0D1D2;
+    }
   }
 }
 
@@ -54,6 +56,7 @@
   text-underline-offset: auto;
   text-underline-position: from-font;
   background: transparent;
+  padding: 0;
 }
 
 .destructive {

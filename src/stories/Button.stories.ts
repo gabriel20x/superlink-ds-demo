@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
+import React from 'react';
 
 import { Button } from '../components/Button/Button';
+import { ArrowBackIcon, FavIcon } from '../components/Icon/icons';
 import { withCard } from './decorators/withCard';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
@@ -62,3 +64,38 @@ export const Destructive: Story = {
     variant: "destructive"
   }
 };
+
+export const Disabled: Story = {
+  args: {
+    label: "Button",
+    variant: "primary",
+    disabled: true,
+  }
+};
+
+export const Loading: Story = {
+  args: {
+    label: "Button",
+    variant: "primary",
+    loading: true,
+  }
+};
+
+export const ButtonWithLeftIcon: Story = {
+  args: {
+    variant: 'text',
+    label: 'Back',
+    icon: React.createElement(ArrowBackIcon, { width: 16, height: 16 }),
+    iconPosition: 'left',
+    width: 'fit',
+  },
+};
+
+export const ButtonWithRightIcon: Story = {
+  args: {
+    label: 'Liked',
+    icon: React.createElement(FavIcon),
+    iconPosition: 'right',
+  },
+};
+
