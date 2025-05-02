@@ -56,7 +56,7 @@
   text-underline-offset: auto;
   text-underline-position: from-font;
   background: transparent;
-  padding: 0;
+  padding: 0 !important;
 }
 
 .destructive {

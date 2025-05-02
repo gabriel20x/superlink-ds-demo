@@ -99,3 +99,11 @@ export const ButtonWithRightIcon: Story = {
   },
 };
 
+export const ButtonGroup: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '8px' }}>
+      <Button variant="text" label="Cancel" />
+      <Button variant="primary" label="Submit" />
+    </div>
+  )
+};

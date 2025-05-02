@@ -1,7 +1,7 @@
 {
   "name": "@gabriel20x/superlink-components-library",
   "private": false,
-  "version": "0.0.24",
+  "version": "0.0.28",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -14,11 +14,6 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
-    },
-    "./icons": {
-      "import": "./dist/icons.mjs",
-      "require": "./dist/icons.js",
-      "types": "./dist/icons.d.ts"
     },
     "./dist/*": "./dist/*"
   },
@@ -65,6 +60,7 @@
     "react-phone-input-2": "^2.15.1",
     "rollup": "^4.39.0",
     "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "storybook": "^8.6.12",

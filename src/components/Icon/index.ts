@@ -13,7 +13,8 @@ import {
   InfoIcon,
   FavIcon,
   HelpFullIcon,
-  HelpOutlinedIcon
+  HelpOutlinedIcon,
+  LoadingIcon
 } from './icons';
 
 export default {
@@ -31,5 +32,6 @@ export default {
     InfoIcon,
     FavIcon,
     HelpFullIcon,
-    HelpOutlinedIcon
+    HelpOutlinedIcon,
+    LoadingIcon
   };

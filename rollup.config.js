@@ -8,7 +8,6 @@ import image from '@rollup/plugin-image';
 export default {
   input: {
     index: 'src/index.ts',
-    icons: 'src/components/Icon/index.ts',
     assets: 'src/assets/index.ts'
   },
   output: [

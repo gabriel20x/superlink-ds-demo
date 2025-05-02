@@ -67,7 +67,7 @@
 }
 
 .superlinkPage {
-  padding-left: 98px;
+  padding-left: 106px;
 }
 
 .superlinkPageIcon {
@@ -75,7 +75,6 @@
   position: absolute;
   left: 16px;
   color: #727479;
-  top: -2px;
 }
 
 .trailingIcon {
