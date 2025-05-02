@@ -13,6 +13,7 @@ export interface InputProps
   inputFeedback?: string;
   inputLabel?: string;
   onTrailingIconClick?: () => void;
+  isSuperlinkPage?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -27,6 +28,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       inputLabel,
       className,
       onTrailingIconClick,
+      isSuperlinkPage,
       ...props
     },
     ref
@@ -41,6 +43,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       styles.input,
       error && styles.inputError,
       trailingIcon && styles.hasTrailingIcon,
+      isSuperlinkPage && styles.superlinkPage,
       className
     );
 
@@ -58,6 +61,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           </div>
         )}
         <div className={styles.inputWrapper}>
+          {isSuperlinkPage && (
+            <p className={styles.superlinkPageIcon}>
+              Superlink.io/
+            </p>
+          )}
           <input ref={ref} className={inputClasses} {...props} />
           {trailingIcon && (
             <div className={styles.trailingIcon} onClick={onTrailingIconClick}>

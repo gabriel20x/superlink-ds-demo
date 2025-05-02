@@ -51,19 +51,31 @@
   width: 100%;
   height: 40px;
   padding: 0 16px;
-  font-size: 16px;
+  font-size: 14px;
+  line-height: 24px;
   border-radius: 8px;
   border: none;
   background-color: #f3f3f4;
   color: #14171F;
   outline: none;
-  font-size: 16px;
   text-size-adjust: none;
   -webkit-text-size-adjust: none;
 }
 
 .hasTrailingIcon {
   padding-right: 40px;
+}
+
+.superlinkPage {
+  padding-left: 98px;
+}
+
+.superlinkPageIcon {
+  font-size: 14px;
+  position: absolute;
+  left: 16px;
+  color: #727479;
+  top: -2px;
 }
 
 .trailingIcon {

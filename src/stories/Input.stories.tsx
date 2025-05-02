@@ -53,15 +53,6 @@ export const Default: Story = {
   },
 };
 
-// Size variants
-export const Large: Story = {
-  args: {
-    size: 'L',
-    inputLabel: 'Large Input',
-    placeholder: 'Large input',
-  },
-};
-
 export const Medium: Story = {
   args: {
     size: 'M',
@@ -75,6 +66,14 @@ export const Small: Story = {
     size: 'S',
     inputLabel: 'Small Input',
     placeholder: 'Small input',
+  },
+};
+
+export const SuperlinkPage: Story = {
+  args: {
+    isSuperlinkPage: true,
+    inputLabel: 'Superlink Page Input',
+    placeholder: 'Superlink page input',
   },
 };
 
