@@ -1,9 +1,9 @@
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import resolve from '@rollup/plugin-node-resolve';
-import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
-import postcss from 'rollup-plugin-postcss';
+import postcss from '@rollup/plugin-postcss';
 import image from '@rollup/plugin-image';
+import typescript from '@rollup/plugin-typescript';
 
 export default {
   input: {
@@ -30,26 +30,31 @@ export default {
   plugins: [
     peerDepsExternal(),
 
-    // Handle CSS modules before resolution
-    postcss({
-      modules: true,
-      extract: true,
-      minimize: true,
-      sourceMap: true,
-    }),
-
+    // 1) Let Rollup resolve your .css imports…
     resolve({
-      extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.png', '.module.css'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.png'],
       preferBuiltins: true,
     }),
 
+    // 2) Turn CommonJS modules into ES modules
     commonjs({
       include: /node_modules/,
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
     }),
 
+    // 3) Then handle CSS modules
+    postcss({
+      modules: true,
+      extensions: ['.css'],
+      extract: true,      // emits a separate CSS file
+      minimize: true,
+      sourceMap: true,
+    }),
+
+    // 4) Inline any imported images
     image(),
 
+    // 5) Finally, compile TS → JS
     typescript({
       tsconfig: './tsconfig.json',
       declaration: true,
