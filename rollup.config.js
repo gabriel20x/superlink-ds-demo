@@ -8,7 +8,7 @@ import image from '@rollup/plugin-image';
 export default {
   input: {
     index: 'src/index.ts',
-    assets: 'src/assets/index.ts'
+    assets: 'src/assets/index.ts',
   },
   output: [
     {
@@ -17,33 +17,39 @@ export default {
       format: 'cjs',
       sourcemap: true,
       exports: 'named',
-      interop: 'auto'
+      interop: 'auto',
     },
     {
       dir: 'dist',
       entryFileNames: '[name].mjs',
       format: 'esm',
       sourcemap: true,
-      exports: 'named'
-    }
+      exports: 'named',
+    },
   ],
   plugins: [
     peerDepsExternal(),
-    resolve({
-      extensions: ['.js', '.jsx', '.ts', '.tsx', '.png', '.css'],
-      preferBuiltins: true
-    }),
-    commonjs({
-      include: /node_modules/,
-      extensions: ['.js', '.jsx', '.ts', '.tsx']
-    }),
-    image(),
+
+    // Handle CSS modules before resolution
     postcss({
       modules: true,
       extract: true,
       minimize: true,
-      sourceMap: true
+      sourceMap: true,
     }),
+
+    resolve({
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.png'],
+      preferBuiltins: true,
+    }),
+
+    commonjs({
+      include: /node_modules/,
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    }),
+
+    image(),
+
     typescript({
       tsconfig: './tsconfig.json',
       declaration: true,
@@ -56,9 +62,15 @@ export default {
         sourceMap: true,
         jsx: 'react-jsx',
         target: 'ES2020',
-        lib: ['ES2020', 'DOM', 'DOM.Iterable']
-      }
-    })
+        lib: ['ES2020', 'DOM', 'DOM.Iterable'],
+      },
+    }),
   ],
-  external: ['react', 'react-dom', 'react-hook-form', '@hookform/resolvers', 'zod']
+  external: [
+    'react',
+    'react-dom',
+    'react-hook-form',
+    '@hookform/resolvers',
+    'zod',
+  ],
 };
