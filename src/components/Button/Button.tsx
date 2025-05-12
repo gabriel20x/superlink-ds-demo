@@ -1,6 +1,6 @@
 import React from "react";
 import { cva, cn } from "../../utils/cva";
-import styles from "./Button.module.css";
+import styles from "./button.module.css";
 import { LoadingIcon } from "../Icon/icons";
 
 type ButtonVariant =
