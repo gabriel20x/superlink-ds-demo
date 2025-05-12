@@ -39,7 +39,7 @@ export default {
     }),
 
     resolve({
-      extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.png'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.png', '.module.css'],
       preferBuiltins: true,
     }),
 
