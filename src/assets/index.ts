@@ -12,8 +12,8 @@ import OffYoutubeIcon from './social-icons/off-youtube.png';
 import OffInstagramIcon from './social-icons/off-instagram.png';
 import OffXIcon from './social-icons/off-x.png';
 import OffFacebookIcon from './social-icons/off-facebook.png';
+import OnlyFansIcon from './social-icons/onlyfans.png';
+import OffOnlyFansIcon from './social-icons/off-onlyfans.png';
 
-
-
-export { FacebookIcon, InstagramIcon, YoutubeIcon, SpotifyIcon, TikTokIcon, SnapchatIcon, XIcon, OffSpotifyIcon, OffTikTokIcon, OffSnapchatIcon, OffYoutubeIcon, OffInstagramIcon, OffXIcon, OffFacebookIcon };
+export { FacebookIcon, InstagramIcon, YoutubeIcon, SpotifyIcon, TikTokIcon, SnapchatIcon, XIcon, OffSpotifyIcon, OffTikTokIcon, OffSnapchatIcon, OffYoutubeIcon, OffInstagramIcon, OffXIcon, OffFacebookIcon, OnlyFansIcon, OffOnlyFansIcon };
 

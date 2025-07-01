@@ -88,6 +88,14 @@ export const Twitter: Story = {
   },
 };
 
+export const OnlyFans: Story = {
+  args: {
+    variant: 'onlyfans',
+    inputLabel: 'OnlyFans Handle',
+    placeholder: '@onlyfans_handle',
+  },
+};
+
 // Size variants
 export const Large: Story = {
   args: {

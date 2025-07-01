@@ -17,6 +17,8 @@ import {
   OffInstagramIcon,
   OffXIcon,
   OffFacebookIcon,
+  OnlyFansIcon,
+  OffOnlyFansIcon,
 } from "../../assets";
 
 export interface SocialInputProps
@@ -28,7 +30,8 @@ export interface SocialInputProps
     | "spotify"
     | "tiktok"
     | "snapchat"
-    | "x";
+    | "x"
+    | "onlyfans"
   error?: boolean;
   size?: "L" | "M" | "S";
   tooltip?: string;
@@ -71,6 +74,8 @@ export const SocialInput = forwardRef<HTMLInputElement, SocialInputProps>(
           return currentValue === "" ? OffSnapchatIcon : SnapchatIcon;
         case "x":
           return currentValue === "" ? OffXIcon : XIcon;
+        case "onlyfans":
+          return currentValue === "" ? OffOnlyFansIcon : OnlyFansIcon;
         default:
           return currentValue === "" ? OffFacebookIcon : FacebookIcon; // Fallback icon
       }
