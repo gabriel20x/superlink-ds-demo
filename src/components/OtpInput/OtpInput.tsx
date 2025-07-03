@@ -1,99 +1,122 @@
-import React, { forwardRef, useRef, useEffect } from 'react';
-import styles from './OtpInput.module.css';
-import { cn } from '../../utils/cva';
-import { WarningIcon } from '../Icon/icons';
+import React, { forwardRef, useRef, useEffect } from "react";
+import styles from "./OtpInput.module.css";
+import { cn } from "../../utils/cva";
+import { WarningIcon } from "../Icon/icons";
 
-type OtpVariants = 'small' | 'large';
+type OtpVariants = "small" | "large";
 
-export interface OtpInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+export interface OtpInputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "inputMode"> {
   length?: number;
   value: string;
   onChange: (value: string) => void;
   error?: boolean;
   inputFeedback?: string;
   variant?: OtpVariants;
+  inputMode?: HTMLInputElement["inputMode"];
 }
 
-export const OtpInput = forwardRef<HTMLInputElement, OtpInputProps>(({
-  length = 4,
-  value = '',
-  onChange,
-  error = false,
-  className,
-  inputFeedback = "Invalid Code. Try Again.",
-  variant = 'small',
-  ...props
-}, ref) => {
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+export const OtpInput = forwardRef<HTMLInputElement, OtpInputProps>(
+  (
+    {
+      length = 4,
+      value = "",
+      onChange,
+      error = false,
+      className,
+      inputFeedback = "Invalid Code. Try Again.",
+      variant = "small",
+      inputMode = "numeric",
+      ...props
+    },
+    ref
+  ) => {
+    const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  useEffect(() => {
-    inputRefs.current = inputRefs.current.slice(0, length);
-  }, [length]);
+    useEffect(() => {
+      inputRefs.current = inputRefs.current.slice(0, length);
+    }, [length]);
 
-  const handleChange = (index: number, newValue: string) => {
-    if (newValue.length > 1) {
-      // Handle paste event
-      const pastedValue = newValue.slice(0, length);
-      onChange(pastedValue);
-      return;
-    }
+    const handleChange = (index: number, newValue: string) => {
+      if (newValue.length > 1 && index === 0) {
+        // Handle paste event
+        const pastedValue = newValue.slice(0, length);
+        onChange(pastedValue);
+        return;
+      }
 
-    const newOtp = value.split('');
-    newOtp[index] = newValue;
-    const finalOtp = newOtp.join('');
+      const newOtp = value.split("");
+      newOtp[index] = newValue;
+      const finalOtp = newOtp.join("");
 
-    onChange(finalOtp);
+      onChange(finalOtp);
 
-    // Move to next input if value is entered
-    if (newValue && index < length - 1) {
-      inputRefs.current[index + 1]?.focus();
-    }
-  };
+      // Move to next input if value is entered
+      if (newValue && index < length - 1) {
+        inputRefs.current[index + 1]?.focus();
+      }
+    };
 
-  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Backspace' && !value[index] && index > 0) {
-      // Move to previous input on backspace if current input is empty
-      inputRefs.current[index - 1]?.focus();
-    }
-  };
+    const handleKeyDown = (
+      index: number,
+      e: React.KeyboardEvent<HTMLInputElement>
+    ) => {
+      if (e.key === "Backspace" && !value[index] && index > 0) {
+        // Move to previous input on backspace if current input is empty
+        inputRefs.current[index - 1]?.focus();
+      }
+    };
 
-  return (
-    <div className={styles.wrapper}>
-      <div className={styles.otpContainer}>
-        {Array.from({ length }).map((_, index) => (
-          <input
-            key={index}
-            ref={(el) => {
-              inputRefs.current[index] = el;
-              if (ref && typeof ref === 'function') {
-                ref(el);
-              }
-            }}
-            type="text"
-            maxLength={1}
-            value={value?.[index] || ''}
-            onChange={(e) => handleChange(index, e.target.value)}
-            onKeyDown={(e) => handleKeyDown(index, e)}
-            className={cn(
-              styles.otpInput,
-              error && styles.otpInputError,
-              variant === 'small' && styles.otpInputSmall,
-              variant === 'large' && styles.otpInputLarge,
-              className
-            )}
-            {...props}
-          />
-        ))}
-      </div>
-      
-      {error &&inputFeedback && (
+    const inputModeOptions: Record<HTMLInputElement["inputMode"], React.InputHTMLAttributes<HTMLInputElement>> = {
+      numeric: {
+        inputMode: "numeric",
+        pattern: "[0-9]*",
+      },
+      text: {
+        inputMode: "text",
+        pattern: "[a-zA-Z0-9]*",
+      },
+    };
+
+    return (
+      <div className={styles.wrapper}>
+        <div className={styles.otpContainer}>
+          {Array.from({ length }).map((_, index) => (
+            <input
+              key={index}
+              ref={(el) => {
+                inputRefs.current[index] = el;
+                if (ref && typeof ref === "function") {
+                  ref(el);
+                }
+              }}
+              type="text"
+              maxLength={1}
+              value={value?.[index] || ""}
+              onChange={(e) => handleChange(index, e.target.value)}
+              onKeyDown={(e) => handleKeyDown(index, e)}
+              className={cn(
+                styles.otpInput,
+                error && styles.otpInputError,
+                variant === "small" && styles.otpInputSmall,
+                variant === "large" && styles.otpInputLarge,
+                className
+              )}
+              {...inputModeOptions[inputMode || "numeric"]}
+              {...props}
+            />
+          ))}
+        </div>
+
+        {error && inputFeedback && (
           <div className={cn(styles.inputFeedback, error && styles.errorText)}>
             <WarningIcon width={16} height={16} />
             {inputFeedback}
           </div>
         )}
-    </div>
-  );
-});
+      </div>
+    );
+  }
+);
 
-OtpInput.displayName = 'OtpInput'; 
+OtpInput.displayName = "OtpInput";

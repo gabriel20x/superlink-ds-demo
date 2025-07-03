@@ -30,6 +30,14 @@
   background-color: white;
   transition: all 0.2s ease;
   color: var(--disabled-color, #727479);
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  appearance: none;
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 .otpInput:focus {
