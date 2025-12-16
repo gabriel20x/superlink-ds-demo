@@ -1,0 +1,1 @@
+import{j as o}from"./jsx-runtime-Cf8x2fCZ.js";import{C as s}from"./Card-C4nhJzTG.js";const t=r=>o.jsx(s,{children:o.jsx(r,{})});t.__docgenInfo={description:"",methods:[],displayName:"withCard"};export{t as w};
